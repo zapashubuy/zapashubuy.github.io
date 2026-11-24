@@ -18,9 +18,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Download site bundle
@@ -32,6 +30,13 @@ jobs:
         uses: actions/upload-pages-artifact@v5
         with:
           path: public
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
