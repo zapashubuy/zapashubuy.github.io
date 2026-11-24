@@ -3,6 +3,8 @@ name: Deploy ZapasHub to GitHub Pages
 on:
   push:
     branches: [main]
+  release:
+    types: [published]
   workflow_dispatch:
 
 permissions:
@@ -24,7 +26,7 @@ jobs:
       - name: Download site bundle
         run: |
           mkdir public
-          curl -fL https://github.com/zapashubuy/zapashubuy.github.io/releases/download/v1.0/ZapasHub_GitHubPages.zip -o /tmp/zapashub.zip
+          curl -fL https://github.com/zapashubuy/zapashubuy.github.io/releases/latest/download/ZapasHub_GitHubPages.zip -o /tmp/zapashub.zip
           unzip -q /tmp/zapashub.zip -d public
       - uses: actions/upload-pages-artifact@v3
         with:
